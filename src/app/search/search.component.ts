@@ -21,6 +21,14 @@ export class SearchComponent implements OnInit {
     this.mealService.getCategories().subscribe(data => {
       this.categories = data.categories;
     });
+
+    // Verificar si hay una búsqueda pasada desde el historial
+    const previousSearch = localStorage.getItem('previousSearch');
+    if (previousSearch) {
+      this.searchTerm = previousSearch;
+      this.searchMeals();
+      localStorage.removeItem('previousSearch');
+    }
   }
 
   searchMeals(): void {
@@ -28,6 +36,9 @@ export class SearchComponent implements OnInit {
       this.mealService.getMealByName(this.searchTerm).subscribe(data => {
         this.meals = data.meals;
         this.selectedCategory = '';
+
+        // Guardar la búsqueda en el historial
+        this.saveSearchToHistory(this.searchTerm);
       });
     }
   }
@@ -48,5 +59,11 @@ export class SearchComponent implements OnInit {
 
   viewDetails(id: string): void {
     this.router.navigate(['/details', id]);
+  }
+
+  private saveSearchToHistory(searchTerm: string): void {
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+    searchHistory = [searchTerm, ...searchHistory].slice(0, 10); // Guardar hasta 10 búsquedas
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
   }
 }

@@ -19,6 +19,7 @@ export class HistoryComponent implements OnInit {
   }
 
   searchMeal(term: string): void {
+    localStorage.setItem('previousSearch', term);
     this.router.navigate(['/index'], { queryParams: { search: term } });
   }
 }
