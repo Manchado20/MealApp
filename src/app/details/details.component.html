@@ -1,0 +1,8 @@
+<div *ngIf="meal" class="container">
+  <h1>{{ meal.strMeal }}</h1>
+  <img [src]="meal.strMealThumb" alt="{{ meal.strMeal }}" />
+  <p><strong>Categoría:</strong> {{ meal.strCategory }}</p>
+  <p><strong>Área:</strong> {{ meal.strArea }}</p>
+  <p><strong>Instrucciones:</strong> {{ meal.strInstructions }}</p>
+  <p><strong>Tags:</strong> {{ meal.strTags }}</p>
+</div>

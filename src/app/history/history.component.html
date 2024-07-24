@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>Historial de Búsquedas</h1>
+  <ul class="list-group">
+    <li
+      *ngFor="let search of searchHistory"
+      class="list-group-item"
+      (click)="searchMeal(search)"
+    >
+      {{ search }}
+    </li>
+  </ul>
+</div>
